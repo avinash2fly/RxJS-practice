@@ -10,6 +10,8 @@ subject.subscribe(
 
 subject.next('The first things has being set');
 
+subject.next('...Observer 2 is about to subscribe');
+
 var observer2 = subject.subscribe(
     data => addItem('Obbserver 2:' + data)
 )
