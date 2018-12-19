@@ -1,9 +1,10 @@
-import {AsyncSubject} from 'rxjs/Rx';
+import {ReplaySubject} from 'rxjs/Rx';
 
-var subject = new AsyncSubject();
+var subject = new ReplaySubject(30,200);
 
 subject.subscribe(
     data => addItem('Observer 1:'+data),
+    err => addItem(err),
     () => addItem('Observer 1 Completed')
 )
 
@@ -17,8 +18,6 @@ var int =setInterval(
         var observer2 = subject.subscribe(
             data => addItem('Observer 2:' + data)
         )
-        //only last event is sent and that also only after calling complete
-        subject.complete();
     },500)
 
 
