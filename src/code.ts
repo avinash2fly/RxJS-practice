@@ -1,4 +1,7 @@
-import { Observable } from "rxjs/Observable";
+// import { Observable } from "rxjs/Observable";
+import {Observable} from 'rxjs/Rx'
+import 'rxjs/add/operator/share';
+// import { share } from "rxjs/operators";
 
 // creating obbservable 
 var observable = Observable.create(
@@ -14,9 +17,7 @@ var observable = Observable.create(
     catch(err){
         observer.error(err);
     }
-}
-    
-);
+}).share();
 
 var observer = observable.subscribe(
     (x:any) => addItem(x),
@@ -26,18 +27,22 @@ var observer = observable.subscribe(
 
 
 
-var observer2 = observable.subscribe(
-    (x:any) => addItem(x)
-);
+// var observer2 = observable.subscribe(
+//     (x:any) => addItem(x)
+// );
 
-// adding observer2 as child of observer
-observer.add(observer2);
+// // adding observer2 as child of observer
+// observer.add(observer2);
 
 //observer.remove(observer2); <-- to remove observer
 
 setTimeout(()=>{
-    observer.unsubscribe();
-},6001);
+    //observer.unsubscribe();
+
+    var observer2 = observable.subscribe(
+        (x:any)=> addItem('Subscriber 2:' + x)
+    )
+},1000);
 
 function addItem(val:any) {
     var node = document.createElement("li");
