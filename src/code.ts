@@ -18,18 +18,10 @@ var int =setInterval(
         var observer2 = subject.subscribe(
             data => addItem('Observer 2:' + data)
         )
-    })
+    },500)
 
-var observer2 = subject.subscribe(
-    data => addItem('Obbserver 2:' + data)
-)
 
-subject.next('the second thing has been sent');
-subject.next('the third thing has been sent');
 
-observer2.unsubscribe();
-
-subject.next('Final thing has been set');
 
 function addItem(val:any) {
     var node = document.createElement("li");
