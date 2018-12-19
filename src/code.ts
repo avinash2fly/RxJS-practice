@@ -1,27 +1,17 @@
-import {AsyncSubject} from 'rxjs/Rx';
-
-var subject = new AsyncSubject();
-
-subject.subscribe(
-    data => addItem('Observer 1:'+data),
-    () => addItem('Observer 1 Completed')
-)
-
-var i=1;
-
-var int =setInterval(
-    ()=>subject.next(i++),100
-    )
-
-    setTimeout(()=>{
-        var observer2 = subject.subscribe(
-            data => addItem('Observer 2:' + data)
-        )
-        //only last event is sent and that also only after calling complete
-        subject.complete();
-    },500)
+import {Observable} from 'rxjs/Rx';
+import { merge } from 'rxjs';
 
 
+var observable = Observable.create((observer:any)=>{
+    observer.next('Hey Guys!')
+})
+
+var observable2 = Observable.create((observer:any)=>{
+    observer.next('How is it going?')
+})
+
+
+var newObbs = merge(observable,observable2);
 
 
 function addItem(val:any) {
