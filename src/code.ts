@@ -13,6 +13,10 @@ var observable2 = Observable.create((observer:any)=>{
 
 var newObbs = merge(observable,observable2);
 
+newObbs.subscribe(
+    (x:any)=> addItem(x)
+    )
+
 
 function addItem(val:any) {
     var node = document.createElement("li");
